@@ -1,4 +1,5 @@
 {% extends "book_outlet/base.html" %}
+
 {% block title %}
     All Books
 {% endblock %}
@@ -6,7 +7,13 @@
 {% block content %}
     <ul>
         {% for book in books %}
-            <li>{{ book.title }} by {{ book.author }}</li>
+            <li> 
+                <a 
+                {% comment %} href="{% url 'book_detail' book.id %}" {% endcomment %}
+                {{ book.get_absolute_url }}
+                >{{ book.title }}</a> 
+                by {{ book.author }} 
+            </li>
         {% endfor %}
     </ul>
 {% endblock %}
