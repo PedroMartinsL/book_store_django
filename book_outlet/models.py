@@ -1,6 +1,7 @@
 from django.db import models
 from django.core.validators import MaxValueValidator, MinValueValidator
 from django.urls import reverse
+from django.utils.text import slugify
 
 # Create your models here.
 
@@ -12,9 +13,15 @@ class Book(models.Model):
     ])
     author = models.CharField(null=True, max_length=50, default='Unknown')
     is_bestselling = models.BooleanField(default=False)
+    slug = models.SlugField(default="", null=False, 
+                            )
 
     def get_deferred_fields(self):
         return reverse('book_detail', args=[self.id])
+
+    def save(self, *args, **kwargs):
+        self.slug = slugify(self.title)
+        super().save(*args, **kwargs)
 
     def __str__(self):
         return self.title
