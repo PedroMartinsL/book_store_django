@@ -13,11 +13,11 @@ class Book(models.Model):
     ])
     author = models.CharField(null=True, max_length=50, default='Unknown')
     is_bestselling = models.BooleanField(default=False)
-    slug = models.SlugField(default="", null=False, 
+    slug = models.SlugField(default="", null=False, db_index= True
                             )
 
     def get_deferred_fields(self):
-        return reverse('book_detail', args=[self.id])
+        return reverse('book_detail', args=[self.slug])
 
     def save(self, *args, **kwargs):
         self.slug = slugify(self.title)

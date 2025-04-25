@@ -9,11 +9,11 @@ def index(request):
     return render(request, 'book_outlet/index.html',
                   {'books': books})
 
-def book_detail(request, book_id):
+def book_detail(request, slug):
     # try:
     #     book = Book.objects.get(id=book_id)
     # except:
     #     raise Http404()
-    book = get_object_or_404(Book, id=book_id)
+    book = get_object_or_404(Book, slug=slug)
     return render(request, 'book_outlet/book_detail.html',
                   {'book': book})#can use pk too
